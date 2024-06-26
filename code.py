@@ -24,7 +24,7 @@ file_in = randName(False)
 avatar = member.display_avatar  # member замените на свою переменную пользователя
 response = requests.get(avatar)
 
-# дальше идет код с какогото сайта чють подредактированый для этого
+# дальше идет код с какогото сайта чуть подредактированый для этого
 # открытие файла во временной директории и запись в него полученной информации из requests.get(avatar)
 with open(file_in, "wb") as file:
     file.write(response.content)
