@@ -13,7 +13,7 @@ import random
 # инструкция
 1 - создайте в папке с вашим кодом папку "data" в ней еще папку "temp"
 
-2 - ```member.display_avatar``` замените на вашу переменную , к примеру :
+2 - ```member.display_avatar``` замените memder на свою переременую с пользователем, к примеру :
 ```
 @bot.event
 async def on_message(message)
