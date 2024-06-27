@@ -57,3 +57,5 @@ out[1] = int(sq[1] / count)
 out[2] = int(sq[2] / count)
 
 hexed = '0x' + format(out[0], 'x') + format(out[1], 'x') + format(out[2], 'x')  # Перевод в HEX
+
+os.remove(file_in)  # удаление файла
