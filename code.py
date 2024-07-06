@@ -33,7 +33,7 @@ img = Image.open(file_in)
 
 obj_for_count = img.load()
 
-f = open('pon.jpg', "rb")  # Файл для размера
+f = open(file_in, "rb")  # Файл для размера
 img_for_size = Image.open(f)
 
 sq = [0, 0, 0]  # Массив для общего подсчета
