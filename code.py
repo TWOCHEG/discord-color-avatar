@@ -1,13 +1,10 @@
-# библиотека на которой это все писали
-import disnake
-
-# импорт нужных библиотек
 import os
 from random import sample
-import requests
 from PIL import Image
+import requests
+from FluffBot import config
 
-# создание рандомного названия
+
 def randName(gif=False) -> str:
     numbers = "1234567890"
     abc = "qwertyuiopasdfghjklzxcvbnm"
@@ -17,45 +14,47 @@ def randName(gif=False) -> str:
         ras = '.gif'
     else:
         ras = '.png'
-    return './data/temp/' + "".join(
-        sample(combinations, 15)) + ras  # './data/temp/' туда сохраняется файл аватарки (потом он удалится)
+    return config.AvatarTemp + "".join(sample(combinations, 15)) + ras  # сохранение файла аватара участника для вывода цвета
 
-file_in = randName(False)
-avatar = member.display_avatar  # member замените на свою переменную пользователя
-response = requests.get(avatar)
 
-# дальше идет код с какогото сайта чуть подредактированый для этого
-# открытие файла во временной директории и запись в него полученной информации из requests.get(avatar)
-with open(file_in, "wb") as file:
-    file.write(response.content)
+def process_avatar(member):  # тут начинается вывод цвета
+    file_in = randName(False)
+    avatar = member.display_avatar
+    response = requests.get(avatar)
 
-img = Image.open(file_in)
+    with open(file_in, "wb") as file:
+        file.write(response.content)
 
-obj_for_count = img.load()
+    img = Image.open(file_in)
+    obj_for_count = img.load()
 
-f = open(file_in, "rb")  # Файл для размера
-img_for_size = Image.open(f)
+    f = open(file_in, "rb")
+    img_for_size = Image.open(f)
 
-sq = [0, 0, 0]  # Массив для общего подсчета
-count = img_for_size.size[0] * img_for_size.size[1]  # Ширина * Высота
+    sq = [0, 0, 0]
+    count = img_for_size.size[0] * img_for_size.size[1]
 
-width = img_for_size.size[0]  # Ширина
-height = img_for_size.size[1]  # Высота
+    width = img_for_size.size[0]
+    height = img_for_size.size[1]
 
-f.close
+    for i in range(width):
+        for j in range(height):
+            sq[0] += obj_for_count[i, j][0]
+            sq[1] += obj_for_count[i, j][1]
+            sq[2] += obj_for_count[i, j][2]
 
-for i in range(width):  # Цикл по ширине
-    for j in range(height):  # Цикл по высоте
-        sq[0] += obj_for_count[i, j][0]  # r
-        sq[1] += obj_for_count[i, j][1]  # g
-        sq[2] += obj_for_count[i, j][2]  # b
+    out = [0, 0, 0]
 
-out = [0, 0, 0]  # Массив для средних значений
+    out[0] = int(sq[0] / count)
+    out[1] = int(sq[1] / count)
+    out[2] = int(sq[2] / count)
 
-out[0] = int(sq[0] / count)  # Средние значения
-out[1] = int(sq[1] / count)
-out[2] = int(sq[2] / count)
+    hexed = '0x' + format(out[0], 'x') + format(out[1], 'x') + format(out[2], 'x')  # тут заканчивается вывод цвета
 
-hexed = '0x' + format(out[0], 'x') + format(out[1], 'x') + format(out[2], 'x')  # Перевод в HEX
+    color = int(hexed, 0)  # вывод цвета в hex для дискорда
 
-os.remove(file_in)  # удаление файла
+    f.close()
+
+    os.remove(file_in)  # удаление файла чтоб не мешался
+
+    return color
