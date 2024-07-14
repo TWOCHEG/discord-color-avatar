@@ -12,6 +12,7 @@ pillow
 3. ну думую объяснять тут дальше особо нечего
 ```
 from (файл с функцией) import process_avatar
+
 color = process_avatar(member=вашапеременная)
 ```
 # пример к использованию
