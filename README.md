@@ -11,25 +11,10 @@ from PIL import Image
 import random
 ```
 # инструкция
-1 - создайте в папке с вашим кодом папку "data" в ней еще папку "temp"
 
-2 - ```member.display_avatar``` замените memder на свою переременую с пользователем, к примеру :
+3 - все, теперь вы можете поставить эту функцию туда куда вам надо
 ```
-@bot.event
-async def on_message(message)
-```
-и тогда переменная будет ```message.author.display_avatar```
-
-3 - все, переменая ```hexed``` будет средний цвет аватарки пользователя в hex
-если вы хотите встроить его в embed то ког будет такой
-```
-color = int(hexed, 0)
-
-    embed = disnake.Embed(
-        title='',
-        description='',
-        colour=color,
-    )
+color = process_avatar(member=вашапеременная)
 ```
 вот мой пример к использованию :
 
