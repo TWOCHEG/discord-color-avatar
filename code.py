@@ -2,6 +2,7 @@ import os
 from random import sample
 from PIL import Image
 import requests
+import disnake/discord
 
 
 def randName(gif=False) -> str:
