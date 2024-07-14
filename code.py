@@ -2,7 +2,6 @@ import os
 from random import sample
 from PIL import Image
 import requests
-from FluffBot import config
 
 
 def randName(gif=False) -> str:
@@ -14,7 +13,7 @@ def randName(gif=False) -> str:
         ras = '.gif'
     else:
         ras = '.png'
-    return config.AvatarTemp + "".join(sample(combinations, 15)) + ras  # сохранение файла аватара участника для вывода цвета
+    return 'тут вам нужно создать папку со временными файлами аватарок и указать к ней путь' + "".join(sample(combinations, 15)) + ras  # сохранение файла аватара участника для вывода цвета
 
 
 def process_avatar(member):  # тут начинается вывод цвета
